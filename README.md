@@ -1,2 +1,0 @@
-# JFE-task
-Interview task
