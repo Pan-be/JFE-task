@@ -14,6 +14,14 @@ h1 {
   margin: 0.67em 0;
 }
 
+.header {
+  display: inline;
+}
+
+.js-logo {
+  height: 2em;
+}
+
 b,
 strong {
   font-weight: bolder;
@@ -248,7 +256,7 @@ button:-moz-focusring {
   display: inline-block;
 }
 
-.channel-logo {
+.channel-logo_pic {
   border-radius: 50%;
 }
 

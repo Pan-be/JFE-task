@@ -278,12 +278,73 @@ let channels = [
     }
 ]
 
+const sortByTitle = document.getElementById('sort-title');
+const sortBySubscribers = document.getElementById('sort-subscribers');
+const sortByVideos = document.getElementById('sort-videos');
+const sortByViews = document.getElementById('sort-views');
+
+
+// DOM elements
 const main = document.querySelector('.wrapper__main')
 const channelsContainer = document.createElement('div')
 const channelsList = document.createElement('ul')
 channelsContainer.className = 'channels-containter'
 main.appendChild(channelsContainer)
 channelsContainer.appendChild(channelsList)
+
+const header = document.querySelector('.header__js-logo')
+const jsLogo = document.createElement('img')
+header.appendChild(jsLogo)
+jsLogo.src = channels[5].thumbnails.default.url
+jsLogo.className = 'js-logo'
+
+const aside = document.querySelector('.sort')
+const invertButton = document.createElement('button')
+aside.appendChild(invertButton)
+invertButton.textContent = 'dark mode'
+invertButton.className = 'button'
+
+// separate large numbers function
+const numberWithCommas = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+// invert colors function
+const invert = () => {
+    let css = 'html {-webkit-filter: invert(100%);' +
+        '-moz-filter: invert(100%);' +
+        '-o-filter: invert(100%);' +
+        '-ms-filter: invert(100%); }',
+        head = document.getElementsByTagName('head')[0],
+        style = document.createElement('style')
+
+    if (!window.counter) {
+        window.counter = 1
+    } else {
+        window.counter++
+        if (window.counter % 2 == 0) {
+            css = 'html {-webkit-filter: invert(0%); -moz-filter: invert(0%); -o-filter: invert(0%); -ms-filter: invert(0%); }'
+        }
+    }
+
+    style.type = 'text/css'
+    if (style.styleSheet) {
+        style.styleSheet.cssText = css
+    } else {
+        style.appendChild(document.createTextNode(css))
+    }
+
+    head.appendChild(style)
+
+    const images = document.querySelectorAll('img');
+    for (let i = 0; i < images.length; i++) {
+        images[i].style.cssText = '-webkit-filter: invert(0%); -moz-filter: invert(0%); -moz-filter: invert(0%); -o-filter: invert(0%); -ms-filter: invert(0%)';
+
+    }
+
+
+}
+
 
 // painting main elements
 
@@ -292,6 +353,7 @@ const paintChannelList = () => {
     let numberOfChannels = channels.length,
         channel,
         channelLogo,
+        channelLogoPic,
         channelTitle,
         channelDataContainer,
         channelSubscribers,
@@ -310,8 +372,10 @@ const paintChannelList = () => {
 
         channel = document.createElement('li');
         channel.className = 'channel';
-        channelLogo = document.createElement('img');
+        channelLogo = document.createElement('a');
         channelLogo.className = 'channel-logo';
+        channelLogoPic = document.createElement('img')
+        channelLogoPic.className = 'channel-logo_pic'
         channelTitle = document.createElement('h3');
         channelTitle.className = 'channel-title';
         channelDataContainer = document.createElement('div');
@@ -341,19 +405,22 @@ const paintChannelList = () => {
 
 
         // Add the atributes
-        channelLogo.src = channels[i].thumbnails.medium.url;
+        channelLogo.href = channels[i].customUrl;
+        channelLogo.target = '_blank'
+        channelLogoPic.src = channels[i].thumbnails.medium.url;
         channelTitle.innerText = channels[i].title;
         channelSubscribersHeader.innerText = 'subscribers';
-        channelSubscribersCount.innerText = channels[i].statistics.subscriberCount;
+        channelSubscribersCount.innerText = numberWithCommas(channels[i].statistics.subscriberCount);
         channelVideosHeader.innerText = 'videos';
-        channelVideosCount.innerText = channels[i].statistics.videoCount;
+        channelVideosCount.innerText = numberWithCommas(channels[i].statistics.videoCount);
         channelViewsHeader.innerText = 'views';
-        channelViewsCount.innerText = channels[i].statistics.viewCount;
+        channelViewsCount.innerText = numberWithCommas(channels[i].statistics.viewCount);
 
 
         // Add listItem to the listElement
         channelsList.appendChild(channel);
         channel.appendChild(channelLogo);
+        channelLogo.appendChild(channelLogoPic);
         channel.appendChild(channelTitle);
         channel.appendChild(channelDataContainer)
 
@@ -372,4 +439,8 @@ const paintChannelList = () => {
     }
 }
 
+invertButton.addEventListener('click', () => {
+    invert()
+})
 paintChannelList()
+// invert()
