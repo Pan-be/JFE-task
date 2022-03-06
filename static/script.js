@@ -278,11 +278,13 @@ let channels = [
     }
 ]
 
-const sortByTitle = document.getElementById('sort-title');
-const sortBySubscribers = document.getElementById('sort-subscribers');
-const sortByVideos = document.getElementById('sort-videos');
-const sortByViews = document.getElementById('sort-views');
-const date = new Date()
+
+let sortAscending = true;
+
+const date = new Date();
+
+const sortInputs = document.querySelector('.sort__options').querySelectorAll('input')
+const clearButton = document.querySelector('.sort').querySelector('.button');
 
 // DOM elements
 const body = document.querySelector('body')
@@ -304,6 +306,7 @@ const invertSortButton = document.createElement('button')
 aside.appendChild(invertSortButton)
 invertSortButton.textContent = 'sort descending'
 invertSortButton.className = 'button'
+invertSortButton.id = 'sort-button'
 
 const footer = document.createElement('footer')
 body.appendChild(footer)
@@ -317,7 +320,7 @@ invertColorsButton.textContent = 'dark mode'
 invertColorsButton.className = 'button'
 invertColorsButton.id = 'invert-button'
 
-// actualy visit date
+// current visit date
 localStorage.setItem("date", date.toString());
 
 // input counting
@@ -381,6 +384,8 @@ const invert = () => {
 // painting main elements
 
 const paintChannelList = (channels) => {
+
+    document.querySelectorAll('.channels-container ul li').forEach(el => el.remove())
 
     let numberOfChannels = channels.length,
         channel,
@@ -471,9 +476,85 @@ const paintChannelList = (channels) => {
     }
 }
 
+// invoke main function
+paintChannelList(channels)
+
+// sort function
+
+const sortFunction = (sortKey) => {
+    const clonnedChannels = JSON.parse(JSON.stringify(channels)); // clonning JSON object
+
+    if (sortKey === 'views') {
+        paintChannelList(clonnedChannels.sort((a, b) => {
+            const viewsA = parseInt(a.statistics.viewCount.replace(/,| /g, ''))
+            const viewsB = parseInt(b.statistics.viewCount.replace(/,| /g, ''))
+
+            if (sortAscending) {
+                return viewsA > viewsB ? 1 : -1
+            } else {
+                return viewsA < viewsB ? 1 : -1
+            }
+        }))
+    }
+    if (sortKey === 'videos') {
+        paintChannelList(clonnedChannels.sort((a, b) => {
+            const videosA = parseInt(a.statistics.videoCount.replace(/.| /g, ''))
+            const videosB = parseInt(b.statistics.videoCount.replace(/.| /g, ''))
+
+            if (sortAscending) {
+                return videosA > videosB ? 1 : -1
+            } else {
+                return videosA < videosB ? 1 : -1
+            }
+        }))
+    }
+    if (sortKey === 'subscribers') {
+        paintChannelList(clonnedChannels.sort((a, b) => {
+            const subscribersA = parseInt(a.statistics.subscriberCount.replace(/.| /g, ''))
+            const subscribersB = parseInt(b.statistics.subscriberCount.replace(/.| /g, ''))
+
+            if (sortAscending) {
+                return subscribersA > subscribersB ? 1 : -1
+            } else {
+                return subscribersA < subscribersB ? 1 : -1
+            }
+        }))
+    }
+    if (sortKey === 'title') {
+        paintChannelList(clonnedChannels.sort((a, b) => {
+            const titleA = a.title.toUpperCase(); // ignore upper and lowercase
+            const titleB = b.title.toUpperCase(); // ignore upper and lowercase
+            if (titleA < titleB) {
+                return -1; //nameA comes first
+            }
+            if (titleA > titleB) {
+                return 1; // nameB comes first
+            }
+            return 0;  // names must be equal
+        }))
+    }
+
+}
+
+// appending listeners 
+sortInputs.forEach(input => {
+    input.addEventListener('change', event => {
+        sortFunction(event.target.value);
+    })
+})
+
+clearButton.addEventListener('click', () => {
+    paintChannelList(channels)
+
+    for (let i = 0; i < sortInputs.length; i++) {
+        sortInputs[i].checked = false;
+    }
+})
+
+invertSortButton.addEventListener('click', () => {
+    sortAscending = !sortAscending
+})
+
 invertColorsButton.addEventListener('click', () => {
     invert()
 })
-
-paintChannelList(channels)
-
