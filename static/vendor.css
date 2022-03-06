@@ -250,18 +250,52 @@ button:-moz-focusring {
   order: 3;
 }
 
+.channels-container {
+  display: flex;
+  flex-direction: row;
+}
+
 .channel {
-  width: 100%;
+  width: 25em;
   background: #fff;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .channel-logo_pic {
   border-radius: 50%;
+  justify-content: center;
+}
+
+.channel-title {
+  margin: 5vh auto;
 }
 
 .datas-container {
-  display: inline-block;
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+}
+
+h4.data-head {
+  padding: 0 2vw;
+  margin: 0 auto;
+}
+
+p.data-count {
+  padding: 0 2vw;
+}
+
+.wrapper__footer {
+  background: #fff;
+  padding: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper__footer p {
+  justify-content: center;
 }
 
 @media only screen and (min-width: 544px) {

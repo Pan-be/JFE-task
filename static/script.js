@@ -282,9 +282,10 @@ const sortByTitle = document.getElementById('sort-title');
 const sortBySubscribers = document.getElementById('sort-subscribers');
 const sortByVideos = document.getElementById('sort-videos');
 const sortByViews = document.getElementById('sort-views');
-
+const date = new Date()
 
 // DOM elements
+const body = document.querySelector('body')
 const main = document.querySelector('.wrapper__main')
 const channelsContainer = document.createElement('div')
 const channelsList = document.createElement('ul')
@@ -299,14 +300,44 @@ jsLogo.src = channels[5].thumbnails.default.url
 jsLogo.className = 'js-logo'
 
 const aside = document.querySelector('.sort')
-const invertButton = document.createElement('button')
-aside.appendChild(invertButton)
-invertButton.textContent = 'dark mode'
-invertButton.className = 'button'
+const invertSortButton = document.createElement('button')
+aside.appendChild(invertSortButton)
+invertSortButton.textContent = 'sort descending'
+invertSortButton.className = 'button'
+
+const footer = document.createElement('footer')
+body.appendChild(footer)
+footer.className = 'wrapper__footer'
+const footerPar = document.createElement('p')
+footer.appendChild(footerPar)
+
+const invertColorsButton = document.createElement('button')
+footer.appendChild(invertColorsButton)
+invertColorsButton.textContent = 'dark mode'
+invertColorsButton.className = 'button'
+
+// actualy visit date
+localStorage.setItem("date", date.toString());
+
+// input counting
+let inputsNum = localStorage.getItem('on_load_counter');
+
+if (inputsNum === null) {
+    inputsNum = 0;
+}
+
+inputsNum++;
+
+localStorage.setItem("on_load_counter", inputsNum);
+
+footerPar.innerHTML = 'number of inputs: ' + inputsNum;
 
 // separate large numbers function
+const removeSpaces = (e) => {
+    return e.replace(/\s+/g, '').trim()
+}
 const numberWithCommas = (x) => {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
 // invert colors function
@@ -405,16 +436,16 @@ const paintChannelList = () => {
 
 
         // Add the atributes
-        channelLogo.href = channels[i].customUrl;
+        channelLogo.href = channels[i].customUrl + '?' + 'utm_campaign=' + date.toLocaleDateString();
         channelLogo.target = '_blank'
         channelLogoPic.src = channels[i].thumbnails.medium.url;
         channelTitle.innerText = channels[i].title;
         channelSubscribersHeader.innerText = 'subscribers';
-        channelSubscribersCount.innerText = numberWithCommas(channels[i].statistics.subscriberCount);
+        channelSubscribersCount.innerText = numberWithCommas(removeSpaces(channels[i].statistics.subscriberCount));
         channelVideosHeader.innerText = 'videos';
-        channelVideosCount.innerText = numberWithCommas(channels[i].statistics.videoCount);
+        channelVideosCount.innerText = numberWithCommas(removeSpaces(channels[i].statistics.videoCount));
         channelViewsHeader.innerText = 'views';
-        channelViewsCount.innerText = numberWithCommas(channels[i].statistics.viewCount);
+        channelViewsCount.innerText = numberWithCommas(removeSpaces(channels[i].statistics.viewCount));
 
 
         // Add listItem to the listElement
@@ -439,8 +470,9 @@ const paintChannelList = () => {
     }
 }
 
-invertButton.addEventListener('click', () => {
+invertColorsButton.addEventListener('click', () => {
     invert()
 })
+
 paintChannelList()
-// invert()
+
