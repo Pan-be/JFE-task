@@ -14,14 +14,6 @@ h1 {
   margin: 0.67em 0;
 }
 
-.header {
-  display: inline;
-}
-
-.js-logo {
-  height: 2em;
-}
-
 b,
 strong {
   font-weight: bolder;
@@ -243,62 +235,24 @@ button:-moz-focusring {
 } 
 
 .wrapper__aside {
+
   order: 2;
 }
 
 .wrapper__main {
+ 
   order: 3;
 }
 
-.channels-container {
-  display: flex;
-  flex-direction: row;
-}
-
-.channel {
-  width: 25em;
-  background: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.channel-logo_pic {
-  border-radius: 50%;
-  justify-content: center;
-}
-
-.channel-title {
-  margin: 5vh auto;
-}
-
-.datas-container {
-  display: flex;
-  flex-direction: row;
-  margin: auto;
-}
-
-h4.data-head {
-  padding: 0 2vw;
-  margin: 0 auto;
-}
-
-p.data-count {
-  padding: 0 2vw;
-}
-
-.wrapper__footer {
-  background: #fff;
-  padding: 0 auto;
-  display: flex;
-  flex-direction: column;
-}
-
-.wrapper__footer p {
-  justify-content: center;
-}
-
 @media only screen and (min-width: 544px) {
+  .header {
+    display: inline;
+  }
+  
+  .js-logo {
+    height: 2em;
+  }
+
   .sort {
     margin-right: 8px;
   }
@@ -344,6 +298,79 @@ p.data-count {
     grid-column: 2;
     grid-row: 3;
   }
+
+  
+.channels-container ul{
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding-inline: 0;
+  margin-block: 0;
+  list-style-type: none;
+}
+
+.channels-container li {
+  max-width: 17em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 8px 8px auto 0;
+  flex: 1;
+  padding: 22px;
+}
+
+.data-container {
+  max-width: 33%;
+  text-align: center;
+}
+
+.channel {
+  max-width: 20em;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.channel-logo_pic {
+  border-radius: 50%;
+  justify-content: center;
+}
+
+.channel-title {
+  margin: 5vh auto;
+}
+
+.datas-container {
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+}
+
+h4.data-head {
+  padding: 0 1vw;
+  margin: 0 auto;
+}
+
+.wrapper__footer {
+  background: #fff;
+  padding: 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+}
+
+.wrapper__footer p {
+  text-align: center;
+  justify-content: center;
+}
+
+#invert-button {
+  width: 20vw;
+  margin: auto;
+}
 }
 
 @media only screen and (min-width: 768px) {
@@ -353,3 +380,6 @@ p.data-count {
     grid-template-columns: 300px 1fr;
   }
 }
+
+
+

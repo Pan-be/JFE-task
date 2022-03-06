@@ -289,7 +289,7 @@ const body = document.querySelector('body')
 const main = document.querySelector('.wrapper__main')
 const channelsContainer = document.createElement('div')
 const channelsList = document.createElement('ul')
-channelsContainer.className = 'channels-containter'
+channelsContainer.className = 'channels-container'
 main.appendChild(channelsContainer)
 channelsContainer.appendChild(channelsList)
 
@@ -315,6 +315,7 @@ const invertColorsButton = document.createElement('button')
 footer.appendChild(invertColorsButton)
 invertColorsButton.textContent = 'dark mode'
 invertColorsButton.className = 'button'
+invertColorsButton.id = 'invert-button'
 
 // actualy visit date
 localStorage.setItem("date", date.toString());
@@ -379,7 +380,7 @@ const invert = () => {
 
 // painting main elements
 
-const paintChannelList = () => {
+const paintChannelList = (channels) => {
 
     let numberOfChannels = channels.length,
         channel,
@@ -474,5 +475,5 @@ invertColorsButton.addEventListener('click', () => {
     invert()
 })
 
-paintChannelList()
+paintChannelList(channels)
 
