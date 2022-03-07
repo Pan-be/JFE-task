@@ -285,6 +285,8 @@ const date = new Date();
 
 const sortInputs = document.querySelector('.sort__options').querySelectorAll('input')
 const clearButton = document.querySelector('.sort').querySelector('.button');
+const filterInput = document.querySelector('.filter__input')
+const clonnedChannels = JSON.parse(JSON.stringify(channels)); // clonning JSON object
 
 // DOM elements
 const body = document.querySelector('body')
@@ -482,7 +484,7 @@ paintChannelList(channels)
 // sort function
 
 const sortFunction = (sortKey) => {
-    const clonnedChannels = JSON.parse(JSON.stringify(channels)); // clonning JSON object
+    // const clonnedChannels = JSON.parse(JSON.stringify(channels)); // clonning JSON object
 
     if (sortKey === 'views') {
         paintChannelList(clonnedChannels.sort((a, b) => {
@@ -535,8 +537,58 @@ const sortFunction = (sortKey) => {
     }
 
 }
+const allChannels = document.querySelectorAll('.channel')
 
-// appending listeners 
+//
+
+filterInput.addEventListener('keyup', (e) => {
+
+    const q = e.target.value.toLowerCase()
+
+    allChannels.forEach((chan) => {
+        // console.log(chan.querySelector('.channel-title').innerText.toLowerCase());
+        filter = filterInput.value.toUpperCase();
+
+        console.log(txtValue);
+    })
+})
+
+
+// filterInput.addEventListener('keyup', (e) => {
+
+// const q = e.target.value.toLowerCase()
+
+// allChannels.forEach((chan) => {
+//     console.log(chan.querySelector('.channel-title'));
+
+
+//     // chan.querySelector('.channel-title').innerText.toLowerCase().startWith(q)
+//         ? chan.style.display = 'flex'
+//         : chan.style.display = 'none'
+// })
+// })
+
+// const filterFunction = () => {
+//     // Declare variables
+//     let filter, chan, title, a, i, txtValue;
+
+//     filter = filterInput.value.toUpperCase();
+//     chan = channelsList.querySelector('.channel');
+//     title = chan.querySelector('.channel-title')
+
+//     // Loop through all list items, and hide those who don't match the search query
+//     for (i = 0; i < title.length; i++) {
+//         a = chan[i].title[0];
+//         txtValue = a.textContent || a.innerText;
+//         if (txtValue.toUpperCase().indexOf(filter) > -1) {
+//             chan[i].style.display = "flex";
+//         } else {
+//             chan[i].style.display = "none";
+//         }
+//     }
+// }
+
+
 sortInputs.forEach(input => {
     input.addEventListener('change', event => {
         sortFunction(event.target.value);
