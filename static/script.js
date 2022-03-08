@@ -541,52 +541,52 @@ const allChannels = document.querySelectorAll('.channel')
 
 //
 
-filterInput.addEventListener('keyup', (e) => {
+// filterInput.addEventListener('keyup', (e) => {
 
-    const q = e.target.value.toLowerCase()
+//     const q = e.target.value.toLowerCase()
 
-    allChannels.forEach((chan) => {
-        // console.log(chan.querySelector('.channel-title').innerText.toLowerCase());
-        filter = filterInput.value.toUpperCase();
+//     allChannels.forEach((chan) => {
+//         // console.log(chan.querySelector('.channel-title').innerText.toLowerCase());
+//         filter = filterInput.value.toUpperCase();
 
-        console.log(txtValue);
-    })
-})
+//         console.log(txtValue);
+//     })
+// })
 
 
 // filterInput.addEventListener('keyup', (e) => {
 
-// const q = e.target.value.toLowerCase()
+//     const q = e.target.value.toLowerCase()
 
-// allChannels.forEach((chan) => {
-//     console.log(chan.querySelector('.channel-title'));
+//         ;[...allChannels].forEach((chan) => {
+//             console.log(chan.querySelector('.channel-title'));
 
 
-//     // chan.querySelector('.channel-title').innerText.toLowerCase().startWith(q)
-//         ? chan.style.display = 'flex'
-//         : chan.style.display = 'none'
+//             chan.querySelector('.channel-title').innerText.toLowerCase().startWith(q)
+//                 ? chan.style.display = 'flex'
+//                 : chan.style.display = 'none'
+//         })
 // })
-// })
 
-// const filterFunction = () => {
-//     // Declare variables
-//     let filter, chan, title, a, i, txtValue;
+const filterFunction = () => {
+    // Declare variables
+    let filter, chan, title, a, i, txtValue;
 
-//     filter = filterInput.value.toUpperCase();
-//     chan = channelsList.querySelector('.channel');
-//     title = chan.querySelector('.channel-title')
+    filter = filterInput.value.toUpperCase();
+    chan = channelsList.querySelector('.channel');
+    title = chan.querySelector('.channel-title')
 
-//     // Loop through all list items, and hide those who don't match the search query
-//     for (i = 0; i < title.length; i++) {
-//         a = chan[i].title[0];
-//         txtValue = a.textContent || a.innerText;
-//         if (txtValue.toUpperCase().indexOf(filter) > -1) {
-//             chan[i].style.display = "flex";
-//         } else {
-//             chan[i].style.display = "none";
-//         }
-//     }
-// }
+    // Loop through all list items, and hide those who don't match the search query
+    for (i = 0; i < title.length; i++) {
+        a = chan[i].title[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            chan[i].style.display = "flex";
+        } else {
+            chan[i].style.display = "none";
+        }
+    }
+}
 
 
 sortInputs.forEach(input => {
